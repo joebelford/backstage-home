@@ -17,8 +17,8 @@ backend:
   database:
     client: pg
     connection:
-      host: ${POSTGRES_HOST}
-      port: ${POSTGRES_PORT}
+      host: ${POSTGRES_SERVICE_HOST}
+      port: ${POSTGRES_SERVICE_PORT}
       user: ${POSTGRES_USER}
       password: ${POSTGRES_PASSWORD}
       # https://node-postgres.com/features/ssl
@@ -27,6 +27,20 @@ backend:
       # ssl:
       #   ca: # if you have a CA file and want to verify it you can uncomment this section
       #     $file: <file-path>/ca/server.crt
+
+integrations:
+  github:
+    - host: github.com
+      apps:
+        - $include: github-app-config.yaml
+
+auth:
+  environment: production
+  providers:
+    github:
+      production:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
 
 catalog:
   # Overrides the default list locations from app-config.yaml as these contain example data.
