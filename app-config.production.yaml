@@ -32,7 +32,7 @@ integrations:
   github:
     - host: github.com
       apps:
-        - $include: github-app-config.yaml
+        - $include: github_app/github-app-config.yaml
 
 auth:
   environment: production
