@@ -3,7 +3,7 @@ app:
   baseUrl: http://localhost:3000
 
 organization:
-  name: My Company
+  name: Joe's House
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -32,6 +32,21 @@ backend:
     connection: ':memory:'
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
+# Doesn't seem to work without organizations
+# integrations:
+#   github:
+#     - host: github.com
+#       apps:
+#         - $include: github-app-credentials.yaml
+
+auth:
+  environment: development
+  providers:
+    github:
+      development:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+
 integrations:
   github:
     - host: github.com
@@ -44,6 +59,10 @@ integrations:
     #   token: ${GHE_TOKEN}
 
 proxy:
+  '/circleci/api':
+    target: https://circleci.com/api/v1.1
+    headers:
+      Circle-Token: ${CIRCLECI_AUTH_TOKEN}
   ### Example for how to add a proxy endpoint for the frontend.
   ### A typical reason to do this is to handle HTTPS and CORS for internal services.
   # endpoints:
@@ -62,9 +81,9 @@ techdocs:
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
-auth:
+# auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
-  providers: {}
+  # providers: {}
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -74,11 +93,14 @@ catalog:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, API, Resource, Location]
+    - allow: [Component, System, API, Resource, Location, Template]
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
       target: ../../examples/entities.yaml
+
+    - type: file
+      target: ../../examples/k8s_test.yaml
 
     # Local example template
     - type: file
@@ -91,6 +113,11 @@ catalog:
       target: ../../examples/org.yaml
       rules:
         - allow: [User, Group]
+
+    - type: url
+      target: https://github.com/joebelford/backstage-home/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Component]
 
     ## Uncomment these lines to add more example data
     # - type: url

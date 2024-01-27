@@ -9,6 +9,21 @@ yarn install
 yarn dev
 ```
 
+## Upgrading
+
+```bash
+yarn backstage-cli versions:bump
+```
+
+## Add integrations
+
+```bash
+yarn add --cwd packages/backend @backstage/plugin-catalog-backend-module-github
+yarn add --cwd packages/app @circleci/backstage-plugin
+yarn add --cwd packages/app @backstage/plugin-kubernetes
+yarn add --cwd packages/backend @backstage/plugin-kubernetes-backend
+```
+
 ## Building image
 
 ```bash
