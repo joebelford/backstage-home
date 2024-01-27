@@ -5,7 +5,7 @@ metadata:
   description: Joe's Backstage application.
   annotations:
     github.com/project-slug: joebelford/backstage-home
-    backstage.io/techdocs-ref: dir:.
+    # backstage.io/techdocs-ref: dir:.
 spec:
   type: website
   owner: guests
