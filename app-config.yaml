@@ -96,28 +96,35 @@ catalog:
     - allow: [Component, System, API, Resource, Location, Template]
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
-    - type: file
-      target: ../../examples/entities.yaml
+    # - type: file
+    #   target: ../../examples/entities.yaml
 
-    - type: file
-      target: ../../examples/k8s_test.yaml
+    - type: url
+      target: https://github.com/joebelford/unifi/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Component]
+
+    - type: url
+      target: https://github.com/joebelford/frigate/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Component]      
+
+    - type: url
+      target: https://github.com/joebelford/backstage-home/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Component]
 
     # Local example template
-    - type: file
-      target: ../../examples/template/template.yaml
-      rules:
-        - allow: [Template]
+    # - type: file
+    #   target: ../../examples/template/template.yaml
+    #   rules:
+    #     - allow: [Template]
 
     # Local example organizational data
     - type: file
       target: ../../examples/org.yaml
       rules:
         - allow: [User, Group]
-
-    - type: url
-      target: https://github.com/joebelford/backstage-home/blob/main/catalog-info.yaml
-      rules:
-        - allow: [Component]
 
     ## Uncomment these lines to add more example data
     # - type: url
